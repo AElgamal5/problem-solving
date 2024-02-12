@@ -34,7 +34,7 @@ console.log("=".repeat(30));
 //------------------------2nd trial------------------------------
 //---------------------------------------------------------------
 //space: O(n)
-//time: O()
+//time: O(n*log(n))
 
 /**
  * @param {number[]} nums
@@ -80,11 +80,36 @@ console.log(twoSum2([2, 7, 11, 15], 9)); // [0,1]
 console.log(twoSum2([3, 2, 4], 6)); //[1,2]
 console.log(twoSum2([3, 3], 6)); //[0,1]
 console.log(twoSum2([5, 75, 25], 100)); //[1,2]
-// console.log("=".repeat(30));
+console.log("=".repeat(30));
 
 //---------------------------------------------------------------
 //------------------------3rd trial------------------------------
 //---------------------------------------------------------------
-//space: O()
-//time: O()
-//use map and for loop to get diff
+//space: O(n)
+//time: O(n)
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum3 = function (nums, target) {
+  const map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    let diff = target - nums[i];
+    if (map.has(diff)) {
+      return [i, map.get(diff)];
+    }
+    map.set(nums[i], i);
+  }
+
+  return [-1, -1];
+};
+
+// console.log(twoSum3([2, 7, 11, 15], 9)); // [0,1]
+// console.log(twoSum3([3, 2, 4], 6)); //[1,2]
+// console.log(twoSum3([3, 3], 6)); //[0,1]
+// console.log(twoSum3([5, 75, 25], 100)); //[1,2]
+// console.log(twoSum3([5, 25, 100, 0], 100)); //[2,3]
+console.log(twoSum3([0, 4, 3, 0], 0)); //[0,3]
+// console.log("=".repeat(30));
