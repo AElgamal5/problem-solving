@@ -13,7 +13,7 @@
 //description: prefix sum
 
 //space: O(1)
-//time: O()
+//time: O(2n) => O(n)
 
 /**
  * @param {number[]} nums
