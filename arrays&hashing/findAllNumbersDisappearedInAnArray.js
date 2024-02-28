@@ -73,7 +73,7 @@ var findDisappearedNumbers = function (nums) {
 //------------------------3rd trial------------------------------
 //---------------------------------------------------------------
 
-//description: save all nums to map and delete exited to get not exited
+//description: make existing positions negative and return positions with positive sign
 
 //space: O(n)
 //time: O(2n) => O(n)
