@@ -8,10 +8,10 @@
 //------------------------1st trial------------------------------
 //---------------------------------------------------------------
 
-//description:
+//description:merge sort
 
-//time: O()
-//space: O()
+//time: O(n log n)
+//space: O(n)
 
 /**
  * @param {number[]} nums
