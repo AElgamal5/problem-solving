@@ -51,7 +51,7 @@ var productExceptSelf = function (nums) {
 //---------------------------------------------------------------
 //------------------------1st trial------------------------------
 //---------------------------------------------------------------
-//description:store the prefix and the postfix result in arrays ans loop over them to get the final result
+//description:store the prefix in answer array and calculate the postfix
 
 //time: O(2n) => O(n)
 //space: O(n)
