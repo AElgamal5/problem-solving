@@ -53,3 +53,36 @@ console.log(
 );
 
 console.log(leastBricks([[1], [1], [1]]));
+
+//---------------------------------------------------------------
+//------------------------2nd trial------------------------------
+//---------------------------------------------------------------
+
+//description: same but more efficient
+
+//time: O(n^2)
+//space: O(n)
+
+/**
+ * @param {number[][]} wall
+ * @return {number}
+ */
+var leastBricks = function (wall) {
+  const gapsMap = new Map();
+  let max = 0;
+
+  for (let i = 0; i < wall.length; i++) {
+    let pos = 0;
+    for (let j = 0; j < wall[i].length - 1; j++) {
+      pos += wall[i][j];
+      let gaps = (gapsMap.get(pos) || 0) + 1;
+      gapsMap.set(pos, gaps);
+
+      if (gaps > max) {
+        max = gaps;
+      }
+    }
+  }
+
+  return wall.length - max;
+};
