@@ -36,9 +36,9 @@ var maxProfit = function (prices) {
 //------------------------2nd trial------------------------------
 //---------------------------------------------------------------
 
-//description: 2 pointer
+//description: 2 pointers
 
-//time: O(n^2)
+//time: O(n)
 //space: O(1)
 
 /**
