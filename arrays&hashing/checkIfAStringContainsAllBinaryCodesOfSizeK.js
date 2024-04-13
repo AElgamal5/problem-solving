@@ -11,7 +11,7 @@
 /**
  * description: using hash set
  *
- * time : O(n^2)
+ * time : O(n*k)
  * space : O(2^k)
  */
 
