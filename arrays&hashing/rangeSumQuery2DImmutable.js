@@ -105,17 +105,9 @@ class NumMatrixOld2 {
   }
 }
 
-// let obj1 = new NumMatrix([
-//   [3, 0, 1, 4, 2],
-//   [5, 6, 3, 2, 1],
-//   [1, 2, 0, 1, 5],
-//   [4, 1, 0, 1, 7],
-//   [1, 0, 3, 0, 5],
-// ]);
-
-// console.log(obj1.sumRegion(2, 1, 4, 3));
-// console.log(obj1.sumRegion(1, 1, 2, 2));
-// console.log(obj1.sumRegion(1, 2, 2, 4));
+//---------------------------------------------------------------
+//------------------------3rd trial------------------------------
+//---------------------------------------------------------------
 
 /**
  * description: using prefix sum
@@ -131,19 +123,22 @@ class NumMatrix {
    * @param {number[][]} matrix
    */
   constructor(matrix) {
-    this.prefixSums = new Array(matrix.length);
+    this.prefixSums = new Array(matrix.length + 1);
     for (let row = 0; row < this.prefixSums.length; row++) {
-      this.prefixSums[row] = new Array(matrix[0].length);
+      this.prefixSums[row] = new Array(matrix[0].length + 1);
     }
 
-    for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[0].length; j++) {
-        console.log(matrix[i - 1][j - 1]);
+    for (let i = 0; i < this.prefixSums.length; i++) {
+      for (let j = 0; j < this.prefixSums[0].length; j++) {
+        if (i === 0 || j == 0) {
+          this.prefixSums[i][j] = 0;
+          continue;
+        }
         this.prefixSums[i][j] =
           (matrix[i - 1][j - 1] || 0) +
-          (matrix[i - 1][j] || 0) +
-          (matrix[i][j - 1] || 0) -
-          (matrix[i - 1][j - 1] || 0);
+          (this.prefixSums[i - 1][j] || 0) +
+          (this.prefixSums[i][j - 1] || 0) -
+          (this.prefixSums[i - 1][j - 1] || 0);
       }
     }
   }
@@ -161,9 +156,9 @@ class NumMatrix {
    */
   sumRegion(row1, col1, row2, col2) {
     return (
-      this.prefixSums[row2][col2] -
-      this.prefixSums[row2][col1] -
-      this.prefixSums[row1][col2] +
+      this.prefixSums[row2 + 1][col2 + 1] -
+      this.prefixSums[row2 + 1][col1] -
+      this.prefixSums[row1][col2 + 1] +
       this.prefixSums[row1][col1]
     );
   }
@@ -180,3 +175,4 @@ let obj1 = new NumMatrix([
 console.log(obj1.sumRegion(2, 1, 4, 3));
 console.log(obj1.sumRegion(1, 1, 2, 2));
 console.log(obj1.sumRegion(1, 2, 2, 4));
+console.log(obj1.sumRegion(0, 0, 0, 0));
