@@ -5,10 +5,12 @@
  */
 
 /**
- * description: 
- * 
- * time : O()
- * space : O()
+ * description:
+ * 1. split words into line based on max width
+ * 2. count no of spaces should be added when joining the line back to one string
+ *
+ * time : O(n^2)
+ * space : O(n)
  */
 
 /**
@@ -23,55 +25,69 @@ let fullJustify = function (words, maxWidth) {
   let lineLength = 0;
 
   for (const word of words) {
-    if (lineLength + word.length <= maxWidth) {
+    let wordLength = word.length;
+    if (lineLength > 0) wordLength++;
+
+    if (lineLength + wordLength <= maxWidth) {
       if (lineLength !== 0) {
         line.push(" ");
-        lineLength += 1;
       }
       line.push(word);
-      lineLength += word.length;
+      lineLength += wordLength;
     } else {
       result.push(line);
       lengths.push(lineLength);
       line = [word];
-      lineLength = word.length;
+      lineLength = --wordLength;
     }
   }
   result.push(line);
   lengths.push(lineLength);
 
-  console.log(result);
-  console.log(lengths);
-
   for (let i = 0; i < result.length; i++) {
-    result[i] = lineJoin(result[i], lengths[i], maxWidth);
+    result[i] = lineJoin(
+      result[i],
+      lengths[i],
+      maxWidth,
+      i < result.length - 1
+    );
   }
 
   return result;
 };
 
-let lineJoin = function (line, lineLength, maxWidth) {
+/**
+ * @param {string[]} line
+ * @param {number} lineLength
+ * @param {number} maxWidth
+ * @param {boolean} isMidLine
+ * @return {string}
+ */
+let lineJoin = function (line, lineLength, maxWidth, isMidLine) {
   let extraSpaces = maxWidth - lineLength;
   let gaps = Math.floor(line.length / 2);
-  console.log(gaps, extraSpaces);
   let result = "";
+
+  let spaceArr = new Array(gaps).fill("");
+  let i = 0;
+  while (isMidLine && gaps > 0 && extraSpaces > 0) {
+    spaceArr[i] += " ";
+    extraSpaces--;
+    i++;
+    if (i === spaceArr.length) {
+      i = 0;
+    }
+  }
+  i = 0;
 
   for (const word of line) {
     if (word !== " ") {
       result += word;
       continue;
     }
-
-    if (extraSpaces <= gaps) {
-      result += "  ";
-      extraSpaces--;
-      gaps--;
-    } else {
-      let spaces = Math.ceil(extraSpaces / gaps);
-      result += " ".repeat(spaces);
-      extraSpaces -= spaces;
-      gaps--;
-    }
+    result += " ";
+    result += spaceArr[i];
+    i++;
   }
 
   if (extraSpaces > 0) {
@@ -84,6 +100,7 @@ let lineJoin = function (line, lineLength, maxWidth) {
 let words = ["This", "is", "an", "example", "of", "text", "justification."];
 let maxWidth = 16;
 console.log(fullJustify(words, maxWidth));
+console.log("=".repeat(30));
 // [
 //     "This    is    an",
 //     "example  of text",
@@ -93,6 +110,7 @@ console.log(fullJustify(words, maxWidth));
 words = ["What", "must", "be", "acknowledgment", "shall", "be"];
 maxWidth = 16;
 console.log(fullJustify(words, maxWidth));
+console.log("=".repeat(30));
 // [
 //     "What   must   be",
 //     "acknowledgment  ",
