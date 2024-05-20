@@ -9,7 +9,7 @@
 //---------------------------------------------------------------
 
 /**
- * description: using last value to make it easy to get unique elements
+ * description: adding a flag to check if the num is taken before ore not
  *
  * time : O(n)
  * space : O(1)
