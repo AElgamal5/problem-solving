@@ -14,12 +14,13 @@ class Solution {
      * get mid node
      * spilt the list into two list with the same length
      * reverse one list
-     * loop over the two lists to check if each element are equal its corresponding one
+     * loop over the two lists to check if each element are equal its corresponding
+     * one
      * 
      * time : O(n).
      * space : O(1);
      */
-    public boolean isPalindrome(ListNode head) {
+    public boolean isPalindrome1(ListNode head) {
         ListNode pointer = head;
         int length = 0;
 
@@ -71,6 +72,39 @@ class Solution {
         }
 
         return prev;
+    }
+
+    // ---------------------------------------------------------------//
+    // ------------------------2nd trial------------------------------//
+    // ---------------------------------------------------------------//
+    /**
+     * more cleaner
+     * 
+     * time : O(n).
+     * space : O(1);
+     */
+    public boolean isPalindrome(ListNode head) {
+
+        if (head == null || head.next == null)
+            return true;
+
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode secondHalf = this.reverse(slow);
+        ListNode firstHalf = head;
+
+        while (secondHalf != null) {
+            if (secondHalf.val != firstHalf.val)
+                return false;
+            secondHalf = secondHalf.next;
+            firstHalf = firstHalf.next;
+        }
+
+        return true;
     }
 
 }
