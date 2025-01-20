@@ -14,7 +14,7 @@ public class BaseballGame {
     // ------------------------1st trial------------------------------//
     // ---------------------------------------------------------------//
     /**
-     * description: store scores in stack due to dealing with last score most fo the
+     * description: store scores in stack due to dealing with last score most of the
      * time
      * 
      * time : O(n).
